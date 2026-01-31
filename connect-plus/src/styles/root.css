@@ -1,0 +1,40 @@
+/* :root {
+  --primary-color: #575757;
+  --secondary-color: #d8c9ae;
+  --light-primary-color: #3b82f6;
+  --light-secondary-color: #a855f7;
+
+  --primary-text-color: #1f2937;
+  --secondary-text-color: #6b7280;
+  --white: #ffffff;
+} */
+
+
+/* :root {
+  --primary-color: #1E3A8A; 
+  --secondary-color: #9CA3AF;
+  --light-primary-color: #3B82F6;
+  --light-secondary-color: #D1D5DB;
+
+  --primary-text-color: #111827; 
+  --secondary-text-color: #6B7280;
+  --white: #FFFFFF;
+} */
+
+
+
+:root {
+  /* --primary-color: #2D3748; */
+  --primary-color: rgb(24 24 27);
+  --secondary-color: oklch(97% 0.001 106.424); /* Warmer grey for backgrounds or secondary sections */
+  /* --light-primary-color: #4299E1;  */
+  --light-primary-color: rgb(161 161 170); 
+  --light-secondary-color: #ffffff; /* Very light grey-blue for subtle highlights or borders */
+  --accent-color: #BEE3F8; /* Very light blue for subtle highlights */
+  --error-color: #E53E3E; /* Red for errors or alerts */
+  --success-color: #38A169; /* Green for success states */
+
+  --primary-text-color: #111827; /* Dark grey for main text, high contrast */
+  --secondary-text-color: #6B7280; /* Mid-grey for less prominent text */
+  --white: #FFFFFF; /* Pure white for crisp contrast */
+}

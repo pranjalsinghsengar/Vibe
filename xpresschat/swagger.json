@@ -1,0 +1,974 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "XpressChat WhatsApp API",
+    "version": "1.0.0",
+    "description": "Send WhatsApp messages (image, text, template)"
+  },
+  "servers": [
+    {
+      "url": "https://vibe.fixall.ai/xpresschat"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "api_key"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/api/whatsapp/message/image": {
+      "post": {
+        "summary": "Send Image Message",
+        "tags": [
+          "Messages"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "img"
+                  },
+                  "value": {
+                    "type": "string",
+                    "example": "https://example.com/image.jpg"
+                  },
+                  "caption": {
+                    "type": "string",
+                    "example": "caption"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Image message sent successfully"
+          },
+          "400": {
+            "description": "Unauthorized: missing api_key"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/whatsapp/message/text": {
+      "post": {
+        "summary": "Send Text Message",
+        "tags": [
+          "Messages"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "text"
+                  },
+                  "value": {
+                    "type": "string",
+                    "example": "Hello from Swagger"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Text message sent successfully"
+          },
+          "400": {
+            "description": "Unauthorized: missing api_key"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/whatsapp/message/template": {
+      "post": {
+        "summary": "Send WhatsApp Template Message",
+        "tags": [
+          "Messages"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "mobile_number",
+                  "template_name",
+                  "language_code",
+                  "components"
+                ],
+                "properties": {
+                  "mobile_number": {
+                    "type": "string",
+                    "example": "919888888888"
+                  },
+                  "template_name": {
+                    "type": "string",
+                    "example": "order_confirmation"
+                  },
+                  "language_code": {
+                    "type": "string",
+                    "example": "en_US"
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "type",
+                        "parameters"
+                      ],
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "body"
+                        },
+                        "parameters": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "type",
+                              "parameter_name",
+                              "text"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "text"
+                              },
+                              "parameter_name": {
+                                "type": "string",
+                                "example": "first_name"
+                              },
+                              "text": {
+                                "type": "string",
+                                "example": "Anukalp"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Template message sent successfully"
+          },
+          "400": {
+            "description": "Bad Request / Missing or Invalid api_key"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/whatsapp/message/location": {
+      "post": {
+        "summary": "Send Location Message",
+        "tags": [
+          "Messages"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "location"
+                  },
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "latitude": {
+                        "type": "number"
+                      },
+                      "longitude": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Location message sent successfully"
+          },
+          "400": {
+            "description": "Unauthorized: missing api_key"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/whatsapp/message/requestlocation": {
+      "post": {
+        "summary": "Send Location Request Message",
+        "tags": [
+          "Messages"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "location-request"
+                  },
+                  "value": {
+                    "type": "string",
+                    "example": "Hi, please send your location"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Location request message sent successfully"
+          },
+          "400": {
+            "description": "Unauthorized: missing api_key"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/whatsapp/message/interactiveList": {
+      "post": {
+        "summary": "Send Interactive List Message",
+        "tags": [
+          "Messages"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "interactive_list"
+                  },
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "header": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "footer": {
+                        "type": "string"
+                      },
+                      "button_title": {
+                        "type": "string"
+                      },
+                      "sections": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "rows": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "title": {
+                                    "type": "string"
+                                  },
+                                  "description": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Interactive list sent successfully"
+          },
+          "400": {
+            "description": "Unauthorized: missing api_key"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/whatsapp/message/interactiveButton": {
+      "post": {
+        "summary": "Send Interactive Button Message",
+        "tags": [
+          "Messages"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "interactive_list"
+                  },
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "header_type": {
+                        "type": "string",
+                        "enum": ["text","video" ,"image"],
+                        "example": "image"
+                      },
+                      "header_value": {
+                        "type": "string",
+                        "example": "https://example.com/image.jpg"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "footer": {
+                        "type": "string"
+                      },
+                      "button_type": {
+                        "type": "string",  
+                        "enum": ["reply", "url"],
+                        "example":"text"
+                      },
+                      "buttons": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "example": "reply"
+                            },
+                            "reply": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Interactive button sent successfully"
+          },
+          "400": {
+            "description": "Unauthorized: missing api_key"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/whatsapp/message/send": {
+      "post": {
+        "summary": "Send a WhatsApp Message",
+        "tags": [
+          "Messages"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "object"
+                  }
+                }
+              },
+              "examples": {
+                "Send Text Message": {
+                  "value": {
+                    "to": "919453658871",
+                    "type": "text",
+                    "value": "Hello from Swagger"
+                  }
+                },
+                "Send Template Message": {
+                  "value": {
+                    "mobile_number": "919453658871",
+                    "template_name": "welcome_template",
+                    "language_code": "en",
+                    "customer_name": "John Doe"
+                  }
+                },
+                "Send Image Message": {
+                  "value": {
+                    "to": "919453658871",
+                    "type": "img",
+                    "value": "https://example.com/image.jpg"
+                  }
+                },
+                "Send Location Message": {
+                  "value": {
+                    "to": "919453658871",
+                    "type": "location",
+                    "value": {
+                      "latitude": 44.9526862,
+                      "longitude": 13.8545217,
+                      "name": "Alok Kumar",
+                      "address": "Noida Sector 62"
+                    }
+                  }
+                },
+                "Send Location Request": {
+                  "value": {
+                    "to": "919453658871",
+                    "type": "location-request",
+                    "value": "Hi, please send your location"
+                  }
+                },
+                "Send Interactive List": {
+                  "value": {
+                    "to": "919453658871",
+                    "type": "interactive_list",
+                    "value": {
+                      "header": "Hello header",
+                      "body": "Hello body",
+                      "footer": "Hello footer",
+                      "button_title": "Click here",
+                      "sections": [
+                        {
+                          "title": "Options",
+                          "rows": [
+                            {
+                              "id": "row1",
+                              "title": "Option 1",
+                              "description": "Description 1"
+                            },
+                            {
+                              "id": "row2",
+                              "title": "Option 2",
+                              "description": "Description 2"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                "Send Interactive Button": {
+                  "value": {
+                    "to": "919453658871",
+                    "type": "interactive_list",
+                    "value": {
+                      "header_type": "image",
+                      "header_value": "https://example.com/image.jpg",
+                      "body": "Hello body",
+                      "footer": "Hello footer",
+                      "button_title": "Click button",
+                      "buttons": [
+                        {
+                          "type": "reply",
+                          "reply": {
+                            "id": "btn1",
+                            "title": "Button 1"
+                          }
+                        },
+                        {
+                          "type": "reply",
+                          "reply": {
+                            "id": "btn2",
+                            "title": "Button 2"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Message sent successfully"
+          },
+          "400": {
+            "description": "Unauthorized: missing api_key"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/whatsapp/message/replyonMessage/status": {
+      "post": {
+        "summary": "Update Message Status or Typing Indicator",
+        "tags": [
+          "Messages"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "message_id"
+                ],
+                "properties": {
+                  "message_id": {
+                    "type": "string",
+                    "example": "wamid.HBgMOTE5NDUzNjU4ODcxFQIAEhggQUMyQjk5RkVCRUVBMDYxN0M0OUZENUUyNzg0RDU5MTMA"
+                  },
+                  "typing_indicator": {
+                    "type": "boolean",
+                    "example": false,
+                    "description": "true = show typing indicator, false = stop typing"
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "read",
+                    "description": "Message status like read or delivered"
+                  }
+                }
+              },
+              "examples": {
+                "Mark Message as Read": {
+                  "value": {
+                    "message_id": "wamid.xxx",
+                    "status": "read"
+                  }
+                },
+                "Show Typing Indicator": {
+                  "value": {
+                    "message_id": "wamid.xxx",
+                    "typing_indicator": true
+                  }
+                },
+                "Stop Typing Indicator": {
+                  "value": {
+                    "message_id": "wamid.xxx",
+                    "typing_indicator": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Message status updated successfully"
+          },
+          "400": {
+            "description": "Invalid request or missing message_id"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/whatsapp/message/replyonMessage/text": {
+      "post": {
+        "summary": "Reply to a WhatsApp Message with Text",
+        "tags": [
+          "Messages"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "to",
+                  "message_id",
+                  "value"
+                ],
+                "properties": {
+                  "to": {
+                    "type": "string",
+                    "example": "919453658871",
+                    "description": "Recipient WhatsApp number with country code"
+                  },
+                  "message_id": {
+                    "type": "string",
+                    "example": "wamid.HBgMOTE5NDUzNjU4ODcxFQIAEhggQUM4NUE1NzVCMkQ0NzdGMjA0REM2RkFBNjFCQTUyODgA",
+                    "description": "Message ID to reply on"
+                  },
+                  "value": {
+                    "type": "string",
+                    "example": "Hello I am fine",
+                    "description": "Reply text message"
+                  }
+                }
+              },
+              "examples": {
+                "Reply Text Message": {
+                  "value": {
+                    "to": "919453658871",
+                    "message_id": "wamid.xxx",
+                    "value": "Hello I am fine"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reply text message sent successfully"
+          },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/whatsapp/message/replyonMessage/emoji": {
+      "post": {
+        "summary": "Reply to a WhatsApp Message with Emoji",
+        "tags": [
+          "Messages"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "to",
+                  "message_id",
+                  "value"
+                ],
+                "properties": {
+                  "to": {
+                    "type": "string",
+                    "example": "919453658871",
+                    "description": "Recipient WhatsApp number with country code"
+                  },
+                  "message_id": {
+                    "type": "string",
+                    "example": "wamid.HBgMOTE5NDUzNjU4ODcxFQIAEhggQUM4NUE1NzVCMkQ0NzdGMjA0REM2RkFBNjFCQTUyODgA",
+                    "description": "Original message ID to reply on"
+                  },
+                  "value": {
+                    "type": "string",
+                    "example": "😊",
+                    "description": "Emoji to send as reply (Unicode supported)"
+                  }
+                }
+              },
+              "examples": {
+                "Send Emoji Reply": {
+                  "value": {
+                    "to": "919453658871",
+                    "message_id": "wamid.xxx",
+                    "value": "😊"
+                  }
+                },
+                "Send Multiple Emojis": {
+                  "value": {
+                    "to": "919453658871",
+                    "message_id": "wamid.xxx",
+                    "value": "👍🔥"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Emoji reply sent successfully"
+          },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/whatsapp/message/replyonMessage/image": {
+      "post": {
+        "summary": "Reply to a WhatsApp Message with Image",
+        "tags": [
+          "Messages"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "to",
+                  "message_id",
+                  "value"
+                ],
+                "properties": {
+                  "to": {
+                    "type": "string",
+                    "example": "919453658871",
+                    "description": "Recipient WhatsApp number with country code"
+                  },
+                  "message_id": {
+                    "type": "string",
+                    "example": "wamid.HBgMOTE5NDUzNjU4ODcxFQIAEhggQUM4NUE1NzVCMkQ0NzdGMjA0REM2RkFBNjFCQTUyODgA",
+                    "description": "Original message ID to reply on"
+                  },
+                  "value": {
+                    "type": "string",
+                    "example": "1255167793102575",
+                    "description": "WhatsApp media image ID (uploaded media)"
+                  },
+                  "caption": {
+                    "type": "string",
+                    "example": "Here is the image you asked for",
+                    "description": "Optional image caption"
+                  }
+                }
+              },
+              "examples": {
+                "Reply Image by Media ID": {
+                  "value": {
+                    "to": "919453658871",
+                    "message_id": "wamid.xxx",
+                    "value": "1255167793102575"
+                  }
+                },
+                "Reply Image with Caption": {
+                  "value": {
+                    "to": "919453658871",
+                    "message_id": "wamid.xxx",
+                    "value": "1255167793102575",
+                    "caption": "Here is your image 😊"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Image reply sent successfully"
+          },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/whatsapp/message/replyonMessage/imageUrl": {
+      "post": {
+        "summary": "Reply to a WhatsApp Message with Image URL",
+        "tags": [
+          "Messages"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "to",
+                  "message_id",
+                  "value"
+                ],
+                "properties": {
+                  "to": {
+                    "type": "string",
+                    "example": "919453658871",
+                    "description": "Recipient WhatsApp number with country code"
+                  },
+                  "message_id": {
+                    "type": "string",
+                    "example": "wamid.HBgMOTE5NDUzNjU4ODcxFQIAEhggQUM4NUE1NzVCMkQ0NzdGMjA0REM2RkFBNjFCQTUyODgA",
+                    "description": "Original message ID to reply on"
+                  },
+                  "value": {
+                    "type": "string",
+                    "format": "uri",
+                    "example": "https://example.com/image.jpg",
+                    "description": "Publicly accessible image URL"
+                  },
+                  "caption": {
+                    "type": "string",
+                    "example": "Here is the image you requested",
+                    "description": "Optional image caption"
+                  }
+                }
+              },
+              "examples": {
+                "Reply Image via URL": {
+                  "value": {
+                    "to": "919453658871",
+                    "message_id": "wamid.xxx",
+                    "value": "https://example.com/image.jpg"
+                  }
+                },
+                "Reply Image via URL with Caption": {
+                  "value": {
+                    "to": "919453658871",
+                    "message_id": "wamid.xxx",
+                    "value": "https://example.com/image.jpg",
+                    "caption": "Product image 📸"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Image URL reply sent successfully"
+          },
+          "400": {
+            "description": "Invalid request data or inaccessible image URL"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
