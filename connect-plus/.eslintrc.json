@@ -1,0 +1,12 @@
+// .eslintrc.json
+{
+    "overrides": [
+      {
+        "files": ["src/api/**/*.ts"],
+        "rules": {
+          "@typescript-eslint/no-explicit-any": "off"
+        }
+      }
+    ]
+  }
+  
