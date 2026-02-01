@@ -4,9 +4,7 @@ import React from "react";
 // export const apiurl = "https://api-xpresschat.fixall.ai";
 // export const apiurl = "https://4fe0-103-206-131-194.ngrok-free.app/vibeconnect";
 // export const apiurl = "https://victor.fixall.ai/vibeconnect";
-
-// export const apiurl = "https://vibe.fixall.ai/xpresschat";
-export const apiurl = "https://vibe-alpha-mocha.vercel.app/xpresschat";
+export const apiurl = "https://vibe.fixall.ai/xpresschat";
 
 // export const apiurl = "https://vibe.fixall.ai/xpresschat"// process.env.API_BASE_URL //"https://vibe.fixall.ai/xpresschat";
 
