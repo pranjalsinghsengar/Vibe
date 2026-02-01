@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 const SocketContext = createContext();
 
 // Create socket instance (backend URL should match your server)
-const socket = io("http://localhost:5050", {
+const socket = io(process.env.REACT_APP_SOCKET_URL || "https://vibe.fixall.ai", {
   transports: ["websocket"],
   reconnection: true,
   reconnectionAttempts: 5,
